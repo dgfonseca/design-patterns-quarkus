@@ -46,14 +46,14 @@ counter.increment();
 
 This approach works in any Java environment, but it requires manual lifecycle and concurrency management.
 
-## Singleton with @Singleton in Quarkus
+## Singleton with @Singleton or @ApplicationScoped in Quarkus
 
 Quarkus supports dependency injection using Jakarta CDI. You can annotate a class with @jakarta.inject.Singleton to indicate that it should be instantiated only once during the application's lifecycle.
 
 ```java
 import jakarta.inject.Singleton;
 
-@Singleton
+@Singleton/@ApplicationScoped
 public class PokemonCount {
 
     private int requestCount;
