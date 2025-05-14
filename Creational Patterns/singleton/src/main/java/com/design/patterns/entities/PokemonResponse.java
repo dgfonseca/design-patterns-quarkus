@@ -5,9 +5,9 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import jakarta.enterprise.context.ApplicationScoped;
+import io.quarkus.runtime.annotations.RegisterForReflection;
 
-@ApplicationScoped
+@RegisterForReflection
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PokemonResponse{
 

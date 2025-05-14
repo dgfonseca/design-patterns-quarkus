@@ -4,10 +4,12 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
+import io.quarkus.runtime.annotations.RegisterForReflection;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
+@RegisterForReflection
 @ApplicationScoped
 @Entity
 @JsonIgnoreProperties(ignoreUnknown = true)
