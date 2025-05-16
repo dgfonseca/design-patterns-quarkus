@@ -42,8 +42,7 @@ public class SingletonPokemonResource {
     public String getPokemons() throws JsonProcessingException {
         pokemonCount.increment();
         PokemonCountPlain.getInstance().increment();
-        List<Pokemon> result = Pokemon.findAll().list();
-        return objectMapper.writeValueAsString(result);
+        return objectMapper.writeValueAsString(Pokemon.findAll().list());
     }
 
 
@@ -78,5 +77,20 @@ public class SingletonPokemonResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String getRequestCount(){
         return String.valueOf("Quarkus singleton: "+pokemonCount.getRequestCount()+" | Plain Java Singleton: "+PokemonCountPlain.getInstance().getRequestCount());
+    }
+
+    // TODO Pokemon height up and down as FormParams
+    public String getPokemonByHeigh() throws JsonProcessingException{
+        return null;
+    }
+    // TODO Pokemon default as path
+    public String getCountPokemonDefault(boolean isDefault) throws JsonProcessingException{
+
+        return null;
+    }
+
+    // TODO Pokemon Name as path and default as query parameter
+    public String updateDefault(String pokemon, Boolean isDefault){
+        return null;
     }
 }

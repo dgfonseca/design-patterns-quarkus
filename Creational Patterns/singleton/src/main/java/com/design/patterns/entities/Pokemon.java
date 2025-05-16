@@ -30,6 +30,9 @@ public class Pokemon extends PanacheEntityBase{
 
     public Integer weight;
 
+    public String type;
+
+
 
     public static void persistIfNotExists(Pokemon pokemon) {
         if (pokemon.id != null && Pokemon.findById(pokemon.id) == null) {
@@ -37,6 +40,4 @@ public class Pokemon extends PanacheEntityBase{
         }
     }
 
-
-    
 }
