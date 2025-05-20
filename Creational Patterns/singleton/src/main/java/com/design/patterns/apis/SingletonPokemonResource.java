@@ -23,26 +23,20 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 
 @ApplicationScoped
-@Path("/pokemon")
+//TODO Configure Path
 public class SingletonPokemonResource {
 
 
     @Inject
     @RestClient
-    PokemonClient client;
+    PokemonClient clientPokemon;
 
-    @Inject
-    ObjectMapper objectMapper;
+    //TODO Inject Item Client
 
-    @Inject
-    PokemonCount pokemonCount;
-    
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String getPokemons() throws JsonProcessingException {
-        pokemonCount.increment();
-        PokemonCountPlain.getInstance().increment();
-        return objectMapper.writeValueAsString(Pokemon.findAll().list());
+        Pokemon.findAll().list();
     }
 
 
@@ -50,37 +44,28 @@ public class SingletonPokemonResource {
     @Path("/load")
     @GET()
     @Produces(MediaType.APPLICATION_JSON)
-    public String loadPokemon() throws JsonProcessingException {
-        pokemonCount.increment();
-        PokemonCountPlain.getInstance().increment();
-        PokemonResponse response = client.getPokemons();
+    public List<Pokemon> loadPokemon() throws JsonProcessingException {
+        PokemonResponse response = clientPokemon.getPokemons();
         List<Pokemon> pokemons=response.getResults().stream().map(obj->{
-            Pokemon pokemon=client.getPokemon(obj.getName());
+            Pokemon pokemon=clientPokemon.getPokemon(obj.getName());
             Pokemon.persistIfNotExists(pokemon);
             return pokemon;
         }).collect(Collectors.toList());
 
-        return objectMapper.writeValueAsString(pokemons);
+        return pokemons;
     }
 
     @Path("/{name}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public String getPokemon(@PathParam("name") String name) throws JsonProcessingException{
+    public Pokemon getPokemon(@PathParam("name") String name) throws JsonProcessingException{
         PokemonCountPlain.getInstance().increment();
-        pokemonCount.increment();
-        return objectMapper.writeValueAsString(client.getPokemon(name));
+        return clientPokemon.getPokemon(name);
     }
 
-    @GET
-    @Path("/count")
-    @Produces(MediaType.TEXT_PLAIN)
-    public String getRequestCount(){
-        return String.valueOf("Quarkus singleton: "+pokemonCount.getRequestCount()+" | Plain Java Singleton: "+PokemonCountPlain.getInstance().getRequestCount());
-    }
 
     // TODO Pokemon height up and down as FormParams
-    public String getPokemonByHeigh() throws JsonProcessingException{
+    public Pokemon getPokemonByHeigh() throws JsonProcessingException{
         return null;
     }
     // TODO Pokemon default as path
@@ -90,7 +75,12 @@ public class SingletonPokemonResource {
     }
 
     // TODO Pokemon Name as path and default as query parameter
-    public String updateDefault(String pokemon, Boolean isDefault){
+    public Pokemon updateDefault(String pokemon, Boolean isDefault){
         return null;
+    }
+
+    // TODO Get Items
+    public void getItems(){
+
     }
 }

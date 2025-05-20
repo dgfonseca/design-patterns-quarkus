@@ -26,6 +26,8 @@ public interface PokemonClient {
 
     @Path("/pokemon/{name}")
     @GET
+        @Produces(MediaType.APPLICATION_JSON)
+
     public Pokemon getPokemon(@PathParam("name") String name);
 
 }

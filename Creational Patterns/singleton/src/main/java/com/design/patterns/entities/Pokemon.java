@@ -10,6 +10,7 @@ import jakarta.persistence.Id;
 @RegisterForReflection
 @ApplicationScoped
 @JsonIgnoreProperties(ignoreUnknown = true)
+//TODO Create Database Entity With Active Record
 public class Pokemon{
 
     @Id
@@ -28,8 +29,5 @@ public class Pokemon{
     public Integer weight;
 
     public String type;
-
-
-
 
 }
