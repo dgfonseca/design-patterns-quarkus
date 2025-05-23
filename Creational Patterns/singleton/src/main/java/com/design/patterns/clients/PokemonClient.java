@@ -13,19 +13,18 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 
 @ApplicationScoped
-@Path("/api/v2")
+@Path("/api/v2/pokemon")
 @RegisterRestClient(baseUri = "https://pokeapi.co")
 public interface PokemonClient {
 
-    @Path("/pokemon")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
 
     public PokemonResponse getPokemons();
 
 
-    @Path("/pokemon/{name}")
+    @Path("/{name}")
     @GET
     public Pokemon getPokemon(@PathParam("name") String name);
-
+    
 }
